@@ -1,2 +1,5 @@
 .venv
 model
+__pycache__
+*.mp4
+*.log

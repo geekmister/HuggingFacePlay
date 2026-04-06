@@ -1,0 +1,11 @@
+# XPU (Intel GPU) version
+# Install this with: pip install -r requirements-xpu.txt
+
+# PyTorch with XPU support from nightly builds
+--index-url https://download.pytorch.org/whl/nightly
+torch
+torchvision
+torchaudio
+
+# Other dependencies
+-r requirements.txt

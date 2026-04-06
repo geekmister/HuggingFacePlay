@@ -1,7 +1,10 @@
 huggingface_hub
-torch 
 diffusers 
-transformers 
+transformers<5
 accelerate 
 bitsandbytes 
+imageio
 imageio-ffmpeg
+tiktoken
+sentencepiece
+protobuf

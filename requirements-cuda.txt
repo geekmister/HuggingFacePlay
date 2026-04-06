@@ -1,0 +1,11 @@
+# CUDA (NVIDIA GPU) version
+# Install this with: pip install -r requirements-cuda.txt
+
+# PyTorch with CUDA 12.1 support
+--index-url https://download.pytorch.org/whl/cu121
+torch
+torchvision
+torchaudio
+
+# Other dependencies
+-r requirements.txt
