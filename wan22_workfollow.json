@@ -1,0 +1,94 @@
+{
+  "last_node_id": 8,
+  "last_link_id": 12,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "LoadDiffusionModel",
+      "pos": [100, 100],
+      "params": {
+        "ckpt_name": "Wan2.2-TI2V-5B-full.safetensors",
+        "vae_name": "Wan2.2-VAE.pth"
+      }
+    },
+    {
+      "id": 2,
+      "type": "WanVideoTS_TextEncoderLoader",
+      "pos": [100, 200],
+      "params": {"model_name": "models_t5-umt5-xl-enc-bf16.safetensors"}
+    },
+    {
+      "id": 3,
+      "type": "WanVideoTextEncode",
+      "pos": [300, 200],
+      "params": {
+        "text": "给人物换装，穿上红色的衣服，自然行走，高清，细节丰富",
+        "negative_prompt": "模糊，变形，低分辨率，穿模，色差",
+        "force_offload": true,
+        "use_disk_cache": true
+      }
+    },
+    {
+      "id": 4,
+      "type": "WanVideoImageToVideoEncode",
+      "pos": [100, 300],
+      "params": {
+        "width": 832,
+        "height": 480,
+        "num_frames": 81,
+        "force_offload": true
+      }
+    },
+    {
+      "id": 5,
+      "type": "WanVideoSampler",
+      "pos": [300, 300],
+      "params": {
+        "steps": 30,
+        "cfg": 6.0,
+        "scheduler": "unipc",
+        "force_offload": true
+      }
+    },
+    {
+      "id": 6,
+      "type": "WanVideoDecode",
+      "pos": [500, 300],
+      "params": {
+        "enable_vae_tiling": true,
+        "tile_x": 272,
+        "tile_y": 272,
+        "tile_stride_x": 32,
+        "tile_stride_y": 128
+      }
+    },
+    {
+      "id": 7,
+      "type": "VHS_VideoCombine",
+      "pos": [700, 300],
+      "params": {
+        "fps": 30,
+        "format": "mp4",
+        "crf": 23,
+        "save_image": false
+      }
+    },
+    {
+      "id": 8,
+      "type": "LoadImage",
+      "pos": [100, 400],
+      "params": {"image": "a1955ca509394b1f500d150af6d117ed9d740"}
+    }
+  ],
+  "links": [
+    ["1", "model", "5", "model"],
+    ["2", "encoder", "3", "t5"],
+    ["3", "text_embeds", "5", "text_embeds"],
+    ["4", "image_embeds", "5", "image_embeds"],
+    ["4", "samples", "5", "samples"],
+    ["5", "samples", "6", "samples"],
+    ["1", "vae", "6", "vae"],
+    ["6", "images", "7", "images"],
+    ["8", "image", "4", "start_image"]
+  ]
+}

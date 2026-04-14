@@ -8,3 +8,5 @@ imageio-ffmpeg
 tiktoken
 sentencepiece
 protobuf
+safetensors
+tqdm
